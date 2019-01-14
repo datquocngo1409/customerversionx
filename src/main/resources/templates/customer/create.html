@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new Customer</title>
+</head>
+<body>
+    <th:block th:if="${mess}">
+        <span th:text="${mess}"></span>
+    </th:block>
+    <fieldset>
+        <legend>Create new Customer</legend>
+        <button><a href="/customers">Back to list</a></button>
+        <form action="/create-customer" th:method="post" th:object="${customer}">
+            <table>
+                <tr>
+                    <td>Name: </td>
+                    <td><input th:field="*{name}"></td>
+                    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><input th:field="*{email}"></td>
+                    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                </tr>
+                <tr>
+                    <td>Phone Number: </td>
+                    <td><input th:field="*{phoneNumber}"></td>
+                    <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone Number Error</td>
+                </tr>
+                <tr>
+                    <td>Province: </td>
+                    <td>
+                        <select th:field="*{province}">
+                            <option th:each="p : ${provinces}" th:value="${p.id}" th:text="${p.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" th:value="Created">
+        </form>
+    </fieldset>
+</body>
+</html>
